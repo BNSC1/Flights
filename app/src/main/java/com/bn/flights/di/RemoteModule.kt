@@ -2,7 +2,7 @@ package com.bn.flights.di
 
 import com.bn.flights.data.SPACEX_URL
 import com.bn.flights.data.remote.DebugInterceptor
-import com.bn.flights.data.repository.SpaceXDataSourceImpl
+import com.bn.flights.data.remote.SpaceXApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -36,14 +36,14 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideLaunchDataSource(
+    fun provideSpaceXApiService(
         moshi: Moshi,
         okHttpClient: OkHttpClient,
-    ): SpaceXDataSourceImpl =
+    ): SpaceXApiService =
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(SPACEX_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(SpaceXDataSourceImpl::class.java)
+            .create(SpaceXApiService::class.java)
 }
