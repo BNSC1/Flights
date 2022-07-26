@@ -4,9 +4,15 @@ import com.squareup.moshi.Json
 
 data class Launch(
     @Json(name = "flight_number") val flightNumber: Int,
-    @Json(name = "mission_name") val missionName: Int,
+    @Json(name = "mission_name") val missionName: String,
     @Json(name = "launch_date_unix") val launchTime: Long,
-)
+    @Json(name = "links") val links: Links,
+) {
+    data class Links(
+        @Json(name = "mission_patch") val missionPatchLargeUrl : String?,
+        @Json(name = "mission_patch_small") val missionPatchSmallUrl : String?,
+    )
+}
 
 /*
 {
