@@ -5,6 +5,7 @@ import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.databinding.ItemLaunchInfoBinding
 import com.bn.flights.ui.base.CustomPagingDataAdapter
 import com.bn.flights.ui.base.OnItemClickListener
+import com.bn.flights.util.TimeUtil
 import com.bumptech.glide.Glide
 import timber.log.Timber
 
@@ -14,6 +15,7 @@ class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) 
             with(binding) {
                 flightNumberText.text = item.flightNumber.toString()
                 missionNameText.text = item.missionName
+                launchTimeText.text = "${TimeUtil.getDateTime(item.launchTime)} ${TimeUtil.getTimeZoneOffset()}"
 
                 item.links.missionPatchSmallUrl?.let {
                     Timber.d("loading ${item.missionName} with image $it")
