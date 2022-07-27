@@ -8,9 +8,9 @@ import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
 abstract class CustomPagingDataAdapter<Binding : ViewBinding, Item : Any>(
-    private val bindAction: (binding: Binding, item: Item) -> Unit,
     comparator: DiffUtil.ItemCallback<Item>
 ) : PagingDataAdapter<Item,BaseViewHolder<Binding, Item>>(comparator) {
+    protected abstract val bindAction: (binding: Binding, item: Item) -> Unit
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

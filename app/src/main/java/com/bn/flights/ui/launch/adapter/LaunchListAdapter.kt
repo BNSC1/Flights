@@ -11,11 +11,22 @@ import timber.log.Timber
 
 class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) :
     CustomPagingDataAdapter<ItemLaunchInfoBinding, Launch>(
+        object : DiffUtil.ItemCallback<Launch>() {
+            override fun areItemsTheSame(oldItem: Launch, newItem: Launch) =
+                oldItem.missionName == newItem.missionName
+
+            override fun areContentsTheSame(oldItem: Launch, newItem: Launch) =
+                oldItem == newItem
+
+        }) {
+
+    override val bindAction: (binding: ItemLaunchInfoBinding, item: Launch) -> Unit =
         { binding, item ->
             with(binding) {
                 flightNumberText.text = item.flightNumber.toString()
                 missionNameText.text = item.missionName
-                launchTimeText.text = "${TimeUtil.getDateTime(item.launchTime)} ${TimeUtil.getTimeZoneOffset()}"
+                launchTimeText.text =
+                    "${TimeUtil.getDateTime(item.launchTime)} ${TimeUtil.getTimeZoneOffset()}"
 
                 item.links.missionPatchSmallUrl?.let {
                     Timber.d("loading ${item.missionName} with image $it")
@@ -28,11 +39,5 @@ class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) 
                 }
                 root.setOnClickListener { clickListener.onItemClick(item) }
             }
-        }, object : DiffUtil.ItemCallback<Launch>() {
-            override fun areItemsTheSame(oldItem: Launch, newItem: Launch) =
-                oldItem.missionName == newItem.missionName
-
-            override fun areContentsTheSame(oldItem: Launch, newItem: Launch) =
-                oldItem == newItem
-
-        })
+        }
+}
