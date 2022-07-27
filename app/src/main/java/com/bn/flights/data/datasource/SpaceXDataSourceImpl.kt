@@ -6,5 +6,5 @@ import javax.inject.Singleton
 
 @Singleton
 class SpaceXDataSourceImpl @Inject constructor(private val spaceXApiService: SpaceXApiService): SpaceXDataSource {
-    override suspend fun getLaunches(start: Int, end: Int) = spaceXApiService.getLaunches(start, end)
+    override suspend fun getLaunches(start: Int, end: Int, order: String) = spaceXApiService.getLaunches(start, end, order)
 }

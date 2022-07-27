@@ -10,6 +10,7 @@ interface SpaceXApiService {
     @GET("launches")
     suspend fun getLaunches(
         @Query("offset") start: Int,
-        @Query("limit") end: Int
+        @Query("limit") end: Int,
+        @Query("order") order: String
     ): List<Launch>
 }

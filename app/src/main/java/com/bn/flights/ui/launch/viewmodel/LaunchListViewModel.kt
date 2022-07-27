@@ -3,6 +3,7 @@ package com.bn.flights.ui.launch.viewmodel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.bn.flights.data.datasource.LaunchPagingDataSource
 import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.data.repository.LaunchRepository
 import com.bn.flights.ui.base.BaseViewModel
@@ -35,4 +36,6 @@ class LaunchListViewModel @Inject constructor(
             _errorMsg.value = e.message.toString()
         }
     }
+
+    fun setLaunchSortOrder(sortOrder: LaunchPagingDataSource.SortOrder) = repository.setLaunchSortOrder(sortOrder).also { getLaunches() }
 }
