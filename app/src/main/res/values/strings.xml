@@ -1,5 +1,26 @@
 <resources>
     <string name="app_name">Flights</string>
     <string name="action_settings">Settings</string>
+
     <string name="label_flight">Flight</string>
+    <string name="label_flight_number">Flight Number</string>
+    <string name="label_mission_name">Mission Name</string>
+    <string name="label_launch_time">Launch Time</string>
+    <string name="label_launch_site">Launch Site</string>
+    <string name="cores">Cores</string>
+    <string name="payloads">Payloads</string>
+    <string name="links">Links</string>
+    <string name="block">Block</string>
+    <string name="flight">Flight</string>
+    <string name="reused">Reused</string>
+    <string name="landing">Landing</string>
+    <string name="no_info">No Info</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="nationality">Nationality</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="type">Type</string>
+    <string name="article_link">Article Link</string>
+    <string name="wikipedia">Wikipedia</string>
+    <string name="video_link">Video Link</string>
 </resources>

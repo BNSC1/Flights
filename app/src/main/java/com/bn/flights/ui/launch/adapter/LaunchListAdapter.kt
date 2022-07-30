@@ -28,7 +28,7 @@ class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) 
                 launchTimeText.text =
                     "${TimeUtil.getDateTime(item.launchTime)} ${TimeUtil.getTimeZoneOffset()}"
 
-                item.links.missionPatchSmallUrl?.let {
+                item.links.missionPatchSmall?.let {
                     Timber.d("loading ${item.missionName} with image $it")
                     Glide.with(root)
                         .load(it)
