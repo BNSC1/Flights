@@ -1,17 +1,65 @@
 package com.bn.flights.data.model.spaceX
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Launch(
     @Json(name = "flight_number") val flightNumber: Int,
     @Json(name = "mission_name") val missionName: String,
     @Json(name = "launch_date_unix") val launchTime: Long,
+    val rocket: Rocket,
     @Json(name = "links") val links: Links,
-) {
+    @Json(name = "launch_site") val launchSite: LaunchSite,
+): Parcelable {
+    @Parcelize
+    data class Rocket(
+        @Json(name = "first_stage") val firstStage: FirstStage,
+        @Json(name = "second_stage") val secondStage: SecondStage
+    ):Parcelable {
+        @Parcelize
+        data class FirstStage(
+            val cores: List<Core>
+        ): Parcelable {
+            @Parcelize
+            data class Core(
+                @Json(name = "core_serial") val serial: String,
+                val flight: Int?,
+                val block: Int?,
+                val reused: Boolean?,
+                @Json(name = "land_success") val landSuccess: Boolean?
+            ): Parcelable
+        }
+
+        @Parcelize
+        data class SecondStage(
+            val payloads: List<Payload>
+        ): Parcelable {
+            @Parcelize
+            data class Payload(
+                @Json(name = "payload_id") val id: String,
+                val reused: Boolean?,
+                val nationality: String?,
+                val manufacturer: String?,
+                @Json(name = "payload_type") val type: String?
+            ): Parcelable
+        }
+    }
+
+    @Parcelize
     data class Links(
-        @Json(name = "mission_patch") val missionPatchLargeUrl : String?,
-        @Json(name = "mission_patch_small") val missionPatchSmallUrl : String?,
-    )
+        @Json(name = "mission_patch") val missionPatchLarge: String?,
+        @Json(name = "mission_patch_small") val missionPatchSmall: String?,
+        @Json(name = "article_link") val article: String?,
+        val wikipedia: String?,
+        @Json(name = "video_link") val video: String?
+    ): Parcelable
+
+    @Parcelize
+    data class LaunchSite(
+        @Json(name = "site_name") val name: String?
+    ): Parcelable
 }
 
 /*

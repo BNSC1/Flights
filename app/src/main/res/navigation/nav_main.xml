@@ -18,5 +18,9 @@
         android:id="@+id/launchDetailFragment"
         android:name="com.bn.flights.ui.launch.LaunchDetailFragment"
         android:label="fragment_launch_detail"
-        tools:layout="@layout/fragment_launch_detail" />
+        tools:layout="@layout/fragment_launch_detail" >
+        <argument
+            android:name="launch"
+            app:argType="com.bn.flights.data.model.spaceX.Launch"/>
+    </fragment>
 </navigation>
