@@ -68,7 +68,7 @@ class LaunchListFragment : ObserveStateNavigationFragment<FragmentLaunchListBind
 
     private fun setupLaunchListAdapter() = LaunchListAdapter(object : OnItemClickListener<Launch> {
         override fun onItemClick(item: Launch) {
-            //todo: move to detail
+            LaunchListFragmentDirections.actionToLaunchDetailFragment(item).navigate()
         }
     })
 
