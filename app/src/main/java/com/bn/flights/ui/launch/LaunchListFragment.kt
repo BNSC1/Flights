@@ -26,13 +26,21 @@ class LaunchListFragment : ObserveStateNavigationFragment<FragmentLaunchListBind
         with(binding) {
             setupSortOrderSpinner()
             launchList.adapter = launchListAdapter
+            setupScrollTopButton()
         }
         collectLaunches()
     }
 
-    private fun FragmentLaunchListBinding.setupSortOrderSpinner() {
-        sortOrderSpinner.adapter = setupSpinnerAdapter()
-        sortOrderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    private fun FragmentLaunchListBinding.setupScrollTopButton() = scrollTopBtn.apply {
+        setOnClickListener {
+            launchList.smoothScrollToPosition(0)
+        }
+    }
+
+
+    private fun FragmentLaunchListBinding.setupSortOrderSpinner() = sortOrderSpinner.apply {
+        adapter = setupSpinnerAdapter()
+        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,

@@ -23,4 +23,5 @@
     <string name="article_link">Article Link</string>
     <string name="wikipedia">Wikipedia</string>
     <string name="video_link">Video Link</string>
+    <string name="hint_scroll_to_top">Scroll to top</string>
 </resources>
