@@ -56,7 +56,7 @@ class LaunchDetailSectionAdapter(context: Context) :
                     toggleExpand()
                 }
                 titleText.text = item.title
-                valueText.text = item.value
+                item.value?.let {valueText.text = it} ?: valueText.setGone()
                 val textDetails = mutableListOf<LaunchDetail.LaunchTextDetail>()
                 val linkDetails = mutableListOf<LaunchDetail.LaunchLinkDetail>()
                 item.details.forEach {
