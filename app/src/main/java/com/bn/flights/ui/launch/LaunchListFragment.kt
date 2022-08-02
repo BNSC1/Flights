@@ -9,14 +9,14 @@ import com.bn.flights.data.datasource.LaunchPagingDataSource
 import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.databinding.FragmentLaunchListBinding
 import com.bn.flights.ktx.collectLatestLifecycleFlow
-import com.bn.flights.ui.base.ObserveStateNavigationFragment
+import com.bn.flights.ui.base.CollectErrorNavigationFragment
 import com.bn.flights.ui.base.OnItemClickListener
 import com.bn.flights.ui.launch.adapter.LaunchListAdapter
 import com.bn.flights.ui.launch.viewmodel.LaunchListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LaunchListFragment : ObserveStateNavigationFragment<FragmentLaunchListBinding>() {
+class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBinding>() {
     override val viewModel: LaunchListViewModel by viewModels()
     private val launchListAdapter = setupLaunchListAdapter()
 
