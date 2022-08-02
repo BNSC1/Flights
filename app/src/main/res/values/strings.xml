@@ -24,4 +24,8 @@
     <string name="wikipedia">Wikipedia</string>
     <string name="video_link">Video Link</string>
     <string name="hint_scroll_to_top">Scroll to top</string>
+    <string name="flight_number">Flight number</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="sort_label_format">%s: %s</string>
 </resources>
