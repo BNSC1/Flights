@@ -9,6 +9,8 @@ import com.bn.flights.R
 import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.databinding.FragmentLaunchListBinding
 import com.bn.flights.ktx.collectLatestLifecycleFlow
+import com.bn.flights.ktx.setInvisible
+import com.bn.flights.ktx.setVisible
 import com.bn.flights.ui.base.CollectErrorNavigationFragment
 import com.bn.flights.ui.base.OnItemClickListener
 import com.bn.flights.ui.launch.adapter.LaunchListAdapter
@@ -33,6 +35,15 @@ class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBind
     }
 
     private fun FragmentLaunchListBinding.setupScrollTopButton() = scrollTopBtn.apply {
+        launchList.setOnScrollChangeListener { _, _, newY, _, oldY ->
+            val triggerValue = 20
+            val dy = newY - oldY
+            if (dy > triggerValue) {
+                scrollTopBtn.setInvisible()
+            } else if (dy < -triggerValue) {
+                scrollTopBtn.setVisible()
+            }
+        }
         setOnClickListener {
             launchList.smoothScrollToPosition(0)
         }
