@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/launchListFragment"
         android:name="com.bn.flights.ui.launch.LaunchListFragment"
-        android:label="fragment_launch_list"
+        android:label="@string/title_launch_list"
         tools:layout="@layout/fragment_launch_list" >
         <action
             android:id="@+id/action_to_launchDetailFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/launchDetailFragment"
         android:name="com.bn.flights.ui.launch.LaunchDetailFragment"
-        android:label="fragment_launch_detail"
+        android:label="@string/title_launch_detail"
         tools:layout="@layout/fragment_launch_detail" >
         <argument
             android:name="launch"

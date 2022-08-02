@@ -1,6 +1,7 @@
 package com.bn.flights.ui
 
 import android.os.Bundle
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.bn.flights.R
 import com.bn.flights.databinding.ActivityMainBinding
 import com.bn.flights.ui.base.NavigationActivity
@@ -16,5 +17,10 @@ class MainActivity : NavigationActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupActionBarWithNavController(navigation)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigation.navigateUp()
     }
 }
