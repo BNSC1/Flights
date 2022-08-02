@@ -28,4 +28,6 @@
     <string name="newest">Newest</string>
     <string name="oldest">Oldest</string>
     <string name="sort_label_format">%s: %s</string>
+    <string name="title_launch_list">Launch List</string>
+    <string name="title_launch_detail">Launch Detail</string>
 </resources>
