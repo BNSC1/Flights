@@ -75,11 +75,11 @@ class LaunchDetailSectionAdapter(context: Context) :
                             LaunchTextDetailAdapter().apply { replaceItems(it) }
                     }
                 }
-                linkDetails.also {
-                    if (it.isNotEmpty()) {
+                linkDetails.also { details ->
+                    if (details.isNotEmpty()) {
                         detailLinkList.adapter =
                             LaunchLinkDetailAdapter(onLinkClickListener).apply {
-                                replaceItems(it)
+                                replaceItems(details.filter { !it.url.isNullOrBlank() })
                             }
                     }
                 }
