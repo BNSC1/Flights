@@ -10,5 +10,15 @@ abstract class BaseViewModel : ViewModel() {
     protected val _errorMsg = MutableStateFlow<String?>(null)
     val errorMsg = _errorMsg.asStateFlow()
 
-    fun clearErrorMsg() { _errorMsg.value = null}
+    fun clearErrorMsg() {
+        _errorMsg.value = null
+    }
+
+    protected inline fun tryRun(failAction: (Throwable) -> Unit = {}, action: () -> Unit) =
+        runCatching {
+            action()
+        }.onFailure {
+            failAction(it)
+            _errorMsg.value = "${it.message}"
+        }
 }

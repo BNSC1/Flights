@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
-import com.bn.flights.data.datasource.LaunchPagingDataSource
+import com.bn.flights.R
 import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.databinding.FragmentLaunchListBinding
 import com.bn.flights.ktx.collectLatestLifecycleFlow
@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBinding>() {
     override val viewModel: LaunchListViewModel by viewModels()
     private val launchListAdapter = setupLaunchListAdapter()
+    private var sortOrder = LaunchListAdapter.SortOrder.OLDEST
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,15 +49,14 @@ class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBind
                 id: Long
             ) {
                 when (position) {
-                    0 -> {
-                        viewModel.setLaunchSortOrder(LaunchPagingDataSource.SortOrder.ASCENDING)
-                        launchListAdapter.refresh()
+                    LaunchListAdapter.SortOrder.OLDEST.ordinal -> {
+                        sortOrder = LaunchListAdapter.SortOrder.OLDEST
                     }
-                    1 -> {
-                        viewModel.setLaunchSortOrder(LaunchPagingDataSource.SortOrder.DESCENDING)
-                        launchListAdapter.refresh()
+                    LaunchListAdapter.SortOrder.NEWEST.ordinal -> {
+                        sortOrder = LaunchListAdapter.SortOrder.NEWEST
                     }
                 }
+                sortList()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -67,8 +67,19 @@ class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBind
         ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("Flight number: Oldest",
-                "Flight number: Newest")
+            arrayOf(
+                String.format(
+                    getString(R.string.sort_label_format),
+                    getString(R.string.flight_number),
+                    getString(R.string.oldest)
+                ),
+                String.format(
+                    getString(R.string.sort_label_format),
+                    getString(R.string.flight_number),
+                    getString(R.string.newest)
+                ),
+
+                )
         ).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
@@ -81,7 +92,14 @@ class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBind
     })
 
     private fun collectLaunches() =
-        viewModel.launchesFlow.collectLatestLifecycleFlow(viewLifecycleOwner) { pagingData ->
-            pagingData?.let { launchListAdapter.submitData(it) }
+        viewModel.launchesFlow.collectLatestLifecycleFlow(viewLifecycleOwner) { data ->
+            data?.let {
+                launchListAdapter.replaceItems(it)
+                sortList()
+            }
         }
+
+    private fun sortList() {
+        launchListAdapter.sort(sortOrder)
+    }
 }

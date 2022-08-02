@@ -24,7 +24,7 @@ data class Launch(
         ): Parcelable {
             @Parcelize
             data class Core(
-                @Json(name = "core_serial") val serial: String,
+                @Json(name = "core_serial") val serial: String?,
                 val flight: Int?,
                 val block: Int?,
                 val reused: Boolean?,

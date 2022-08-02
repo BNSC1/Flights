@@ -1,24 +1,19 @@
 package com.bn.flights.ui.launch.adapter
 
-import androidx.recyclerview.widget.DiffUtil
 import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.databinding.ItemLaunchInfoBinding
-import com.bn.flights.ui.base.CustomPagingDataAdapter
+import com.bn.flights.ui.base.BaseListAdapter
 import com.bn.flights.ui.base.OnItemClickListener
 import com.bn.flights.util.TimeUtil
 import com.bumptech.glide.Glide
 import timber.log.Timber
 
 class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) :
-    CustomPagingDataAdapter<ItemLaunchInfoBinding, Launch>(
-        object : DiffUtil.ItemCallback<Launch>() {
-            override fun areItemsTheSame(oldItem: Launch, newItem: Launch) =
-                oldItem.missionName == newItem.missionName
+    BaseListAdapter<ItemLaunchInfoBinding, Launch>() {
 
-            override fun areContentsTheSame(oldItem: Launch, newItem: Launch) =
-                oldItem == newItem
-
-        }) {
+    enum class SortOrder {
+        OLDEST, NEWEST
+    }
 
     override val bindAction: (binding: ItemLaunchInfoBinding, item: Launch) -> Unit =
         { binding, item ->
@@ -40,4 +35,16 @@ class LaunchListAdapter(private val clickListener: OnItemClickListener<Launch>) 
                 root.setOnClickListener { clickListener.onItemClick(item) }
             }
         }
+
+    fun sort(order: SortOrder) = items.apply {
+        when (order) {
+            SortOrder.OLDEST -> {
+                sortBy { it.flightNumber }
+            }
+            SortOrder.NEWEST -> {
+                sortByDescending { it.flightNumber }
+            }
+        }
+        notifyDataSetChanged()
+    }
 }
