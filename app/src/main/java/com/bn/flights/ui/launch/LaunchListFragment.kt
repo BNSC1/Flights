@@ -104,10 +104,8 @@ class LaunchListFragment : CollectErrorNavigationFragment<FragmentLaunchListBind
 
     private fun collectLaunches() =
         viewModel.launchesFlow.collectLatestLifecycleFlow(viewLifecycleOwner) { data ->
-            data?.let {
-                launchListAdapter.replaceItems(it)
+                launchListAdapter.replaceItems(data)
                 sortList()
-            }
         }
 
     private fun sortList() {

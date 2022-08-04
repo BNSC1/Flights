@@ -5,17 +5,17 @@ import com.bn.flights.data.model.spaceX.Launch
 import com.bn.flights.data.repository.LaunchRepository
 import com.bn.flights.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 @HiltViewModel
 class LaunchListViewModel @Inject constructor(
     private val repository: LaunchRepository,
 ) : BaseViewModel() {
-    private var _launchesFlow: StateFlow<List<Launch>?>
+    private var _launchesFlow: SharedFlow<List<Launch>>
     val launchesFlow get() = _launchesFlow
 
     init {
@@ -26,10 +26,9 @@ class LaunchListViewModel @Inject constructor(
         tryRun {
             emit(repository.getLaunches())
         }
-    }.stateIn(
+    }.shareIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
-        initialValue = null
     )
 
 }
