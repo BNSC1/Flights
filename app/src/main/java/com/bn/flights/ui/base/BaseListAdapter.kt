@@ -33,16 +33,14 @@ abstract class BaseListAdapter<Binding : ViewBinding, Item : Any> :
 
     fun clearItems() = items.run {
         if (isNotEmpty()) {
+            val oldSize = size
             clear()
-            notifyDataSetChanged()
+            notifyItemRangeRemoved(0, oldSize)
         }
     }
 
     fun replaceItems(i: List<Item>) = items.run {
-        if (isNotEmpty()) {
-            clear()
-            notifyDataSetChanged()
-        }
+        clearItems()
         addItems(i)
     }
 
