@@ -63,6 +63,10 @@ dependencies {
     //Coroutines
     def coroutines_version = '1.6.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'

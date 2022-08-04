@@ -17,11 +17,8 @@ abstract class CollectErrorNavigationFragment<Binding : ViewBinding> :
     }
 
     private fun collectErrorMessage() {
-        viewModel.errorMsg.collectLifecycleFlow(viewLifecycleOwner) { msg ->
-            msg?.let {
-                showToast(message = it, Toast.LENGTH_LONG)
-                viewModel.clearErrorMsg()
-            }
+        viewModel.errorMsgFlow.collectLifecycleFlow(viewLifecycleOwner) { msg ->
+                showToast(message = msg, Toast.LENGTH_LONG)
         }
     }
 }
